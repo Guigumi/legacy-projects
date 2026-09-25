@@ -1,0 +1,90 @@
+{
+  "clear": {
+    "usage": "`!clear [quantidade]`",
+    "example": "`!clear 50` — apaga 50 msgs\n`!clear` — abre o painel interativo"
+  },
+  "prefix": {
+    "usage": "`!prefix <novo_prefixo>`",
+    "example": "`!prefix t!` → muda o prefixo para `t!`"
+  },
+  "ia": {
+    "usage": "`!ia <status|on|off|reset>`",
+    "example": "`!ia on` — ativa IA no servidor\n`!ia reset` — limpa contexto da IA no canal"
+  },
+  "logchannel": {
+    "usage": "`!log <#canal>`",
+    "example": "`!log #logs`"
+  },
+  "log": {
+    "usage": "`!log <#canal>` ou `!log` (painel)",
+    "example": "`!log #logs` — define o canal\n`!log` — abre configuração"
+  },
+  "autorole instant": {
+    "usage": "`!autorole instant <@cargo>`",
+    "example": "`!autorole instant @Membro`"
+  },
+  "autorole timer": {
+    "usage": "`!autorole timer <@cargo> <segundos>`",
+    "example": "`!autorole timer @Membro 300`"
+  },
+  "autorole toggle": {
+    "usage": "`!autorole toggle <id>`",
+    "example": "`!autorole toggle 1`"
+  },
+  "autorole remove": {
+    "usage": "`!autorole remove <id>`",
+    "example": "`!autorole remove 1`"
+  },
+  "leaderboard": {
+    "usage": "`!leaderboard [critério]`",
+    "example": "`!leaderboard xp` ou `!lb messages_sent`"
+  },
+  "xpconfig": {
+    "usage": "`!xpconfig`",
+    "example": "`!xpconfig` — abre o painel de configuração de XP"
+  },
+  "xp": {
+    "usage": "`!xp [@membro]`",
+    "example": "`!xp` — seu XP\n`!xp @User` — XP de outro membro"
+  },
+  "choose": {
+    "usage": "`!choose <opção1> ! <opção2> ! ...`",
+    "example": "`!choose pizza ! hambúrguer ! sushi`"
+  },
+  "osu": {
+    "usage": "`!osu <username> [modo]`",
+    "example": "`!osu peppy` ou `!osu peppy taiko`"
+  },
+  "steam": {
+    "usage": "`!steam <nome do jogo>`",
+    "example": "`!steam Subnautica`"
+  },
+  "download": {
+    "usage": "`!download <URL>`",
+    "example": "`!download https://www.youtube.com/watch?v=...`"
+  },
+  "notify": {
+    "usage": "`!notify [criar|listar]`",
+    "example": "`!notify` — cria nova notificação\n`!notify listar` — lista suas notificações"
+  },
+  "update": {
+    "usage": "`!update [check|now|log|auto]`",
+    "example": "`!update` — status do repo\n`!update check` — verifica updates\n`!update now` — atualiza e reinicia"
+  },
+  "update check": {
+    "usage": "`!update check`",
+    "example": "`!update check` — verifica se há commits novos no remote"
+  },
+  "update now": {
+    "usage": "`!update now`",
+    "example": "`!update now` — descarta mudanças locais + git pull + deps + restart"
+  },
+  "update log": {
+    "usage": "`!update log`",
+    "example": "`!update log` — mostra os últimos 15 commits"
+  },
+  "update auto": {
+    "usage": "`!update auto [on|off|channel]`",
+    "example": "`!update auto on` — ativa\n`!update auto off` — desativa\n`!update auto channel #logs`"
+  }
+}

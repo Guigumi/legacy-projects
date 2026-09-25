@@ -1,0 +1,104 @@
+# ── Luna Bot — Serviço systemd (template) ──────────────────────
+# Compatível com Fedora (x86_64), Armbian (ARM), Debian, Ubuntu.
+#
+# Instalação automática (recomendado):
+#   chmod +x install-service.sh && sudo ./install-service.sh
+#
+# Instalação manual:
+#   1. Copie este arquivo para /etc/systemd/system/luna-bot.service
+#   2. Substitua os placeholders:
+#      - LUNA_USER_PLACEHOLDER   → usuário que roda o bot (ex: orangepi)
+#      - LUNA_GROUP_PLACEHOLDER  → grupo do usuário (ex: orangepi)
+#      - LUNA_WORKDIR_PLACEHOLDER → caminho absoluto do bot (ex: /home/orangepi/Luna-Bot)
+#      - LUNA_HOME_PLACEHOLDER   → home do usuário (ex: /home/orangepi)
+#   3. sudo systemctl daemon-reload
+#   4. sudo systemctl enable --now luna-bot
+#
+# Comandos úteis:
+#   sudo systemctl status luna-bot    — ver status
+#   sudo systemctl restart luna-bot   — reiniciar
+#   sudo systemctl stop luna-bot      — parar
+#   journalctl -u luna-bot -f         — ver logs em tempo real
+# ─────────────────────────────────────────────────────────────────
+
+[Unit]
+Description=🌙 Luna Bot — Discord Bot
+Documentation=https://github.com/yLectez/Luna-Bot
+
+# Só inicia depois que a rede estiver disponível
+After=network-online.target
+Wants=network-online.target
+
+# Esperar DNS resolver estar funcional (importante pós queda de luz)
+After=nss-lookup.target systemd-resolved.service
+Wants=nss-lookup.target
+
+[Service]
+Type=simple
+
+# ── Usuário (será substituído pelo install-service.sh) ──────────
+User=LUNA_USER_PLACEHOLDER
+Group=LUNA_GROUP_PLACEHOLDER
+
+# ── Diretórios (será substituído pelo install-service.sh) ───────
+WorkingDirectory=LUNA_WORKDIR_PLACEHOLDER
+ExecStart=LUNA_WORKDIR_PLACEHOLDER/.venv/bin/python LUNA_WORKDIR_PLACEHOLDER/src/main.py
+
+# ── Variáveis de ambiente ───────────────────────────────────────
+# O bot carrega o .env via python-dotenv, mas garantimos que Python
+# não bufferize stdout/stderr (importante para journald ver os logs)
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+
+# ── Política de reinício automático ─────────────────────────────
+# Reinicia SEMPRE que o processo morrer (crash, OOM, kill, update, etc.)
+# O sistema de auto-update (src/features/admin/cogs/update.py) faz os._exit(0) após
+# git pull — o systemd detecta e reinicia com o código novo do disco.
+Restart=always
+
+# Espera 10s antes de reiniciar (evita flood em erro persistente)
+RestartSec=10
+
+# Se falhar 5 vezes em 5 minutos, para de tentar
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+# Tempo máximo para o bot iniciar (conexão lenta / ARM)
+TimeoutStartSec=120
+
+# Tempo para encerrar graciosamente antes de SIGKILL
+TimeoutStopSec=30
+
+# ── Resiliência pós queda de energia ────────────────────────────
+# Atraso inicial para dar tempo à rede estabilizar após boot
+# (especialmente útil em Armbian/Orange Pi onde WiFi demora)
+ExecStartPre=/bin/sleep 5
+
+# ── Hardening de segurança ──────────────────────────────────────
+# Protege o sistema — o bot só acessa o que precisa
+NoNewPrivileges=true
+ProtectSystem=strict
+PrivateTmp=true
+
+# ProtectHome=tmpfs esconde o /home real e monta um vazio.
+# Usamos BindPaths para expor apenas o necessário dentro dele:
+#   - Diretório do bot (leitura/escrita — código, data/, .venv/)
+#   - ~/.ssh do usuário (somente leitura — necessário para git via SSH)
+ProtectHome=tmpfs
+BindPaths=LUNA_WORKDIR_PLACEHOLDER
+BindReadOnlyPaths=LUNA_HOME_PLACEHOLDER/.ssh
+
+# Permite escrita no diretório de dados e na venv
+ReadWritePaths=LUNA_WORKDIR_PLACEHOLDER/data
+ReadWritePaths=LUNA_WORKDIR_PLACEHOLDER/.venv
+ReadWritePaths=LUNA_WORKDIR_PLACEHOLDER
+
+# ── Logging ─────────────────────────────────────────────────────
+# Envia stdout/stderr para o journal do systemd
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=luna-bot
+
+[Install]
+# Inicia automaticamente no boot
+WantedBy=multi-user.target
