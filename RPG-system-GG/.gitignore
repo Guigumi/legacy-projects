@@ -1,0 +1,12 @@
+node_modules/
+*.log
+*.tmp
+*.env
+!.env.example
+backend/db/*.sqlite
+backend/db/*.sqlite-wal
+backend/db/*.sqlite-shm
+backend/.env
+frontend/dist/
+release/
+*.AppImage

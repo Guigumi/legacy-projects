@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #355d46 #08110d;
+  }
+  *::-webkit-scrollbar {
+    width: 6px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #08110d;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 3px;
+  }
+  body {
+    min-width: 320px;
+    background:
+      radial-gradient(circle at 78% -10%, rgba(143, 216, 172, 0.09), transparent 34rem),
+      #08110d;
+    color: #dce9df;
+    font-feature-settings: 'ss01' 1;
+  }
+}
+
+@keyframes turn-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(49, 235, 49, 0); }
+  50% { box-shadow: 0 0 22px rgba(49, 235, 49, 0.16); }
+}
+
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+  .animate-turn-pulse { animation: turn-pulse 2.4s ease-in-out infinite; }
+  .animate-enter-up { animation: enter-up 220ms ease-out both; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg font-medium transition-colors duration-100 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+  .btn-chamfered {
+    @apply btn bg-accent text-bg hover:bg-accenthover;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+  .btn-accent {
+    @apply btn bg-accent text-bg hover:bg-accenthover;
+  }
+  .btn-ghost {
+    @apply btn bg-surface2 text-gray-300 hover:bg-border border border-border;
+  }
+  .btn-sm {
+    @apply px-2 py-1 text-xs rounded-md;
+  }
+  .icon-btn {
+    @apply inline-flex h-8 w-8 items-center justify-center rounded-lg text-muted transition-colors hover:bg-surface2 hover:text-accent disabled:cursor-not-allowed disabled:opacity-40;
+  }
+  .icon-btn-primary {
+    @apply icon-btn bg-accent text-bg hover:bg-accenthover hover:text-bg;
+  }
+  .card {
+    @apply rounded-lg border border-border/80 bg-surface/75 p-3 backdrop-blur-md;
+    box-shadow: inset 0 1px 0 rgba(220, 233, 223, 0.035), 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+  .input {
+    @apply bg-bg border border-border rounded-lg px-3 py-2 text-gray-100 focus:outline-none focus:border-accent w-full text-sm;
+  }
+  .bar-bg {
+    @apply h-2 bg-bg rounded-full overflow-hidden border border-border;
+  }
+  .sidebar-action {
+    @apply flex w-full items-center gap-3 px-3 py-2 text-left text-sm text-muted transition-colors hover:bg-surface2 hover:text-gray-100;
+  }
+  .chamfered {
+    clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+  }
+}
