@@ -1,10 +1,7 @@
 # Legacy Projects
+Repositorio para manter projetos antigos, nada aqui sera retornado o desenvolvimento ou tem uma versão completamente nova em outro repo.
 
-Arquivo histórico de projetos e bots antigos desenvolvidos para aprendizado prático:
-
-- `luna-py/`: Primeira versão experimental da Luna feita em Python.
-- `sorush-bot/`: Primeiro bot experimental para Discord.
-- `RPG-system/`: Aplicativo desktop local (Electron, React e Node.js) para mestrar campanhas de RPG.
-- `howtofish-sellall/`: Utilitário relacionado à pesca ("how to fish").
-
-> **Status:** Repositório de arquivo para projetos totalmente descontinuados (somente leitura).
+- `luna-py/`: Primeira versão da Luna feita em Python. (funcional mas instavel)
+- `sorush-bot/`: Primeiro bot experimental para Discord. (não esta muito funcional, alem de desorganizada)
+- `RPG-system/`: Aplicativo Electron para mestrar campanhas de RPG. (projeto descontinuado antes de ficar estavel)
+- `howtofish-sellall/`: Mod de "How to fish" para previnir acumalar itens. (totalmente funcional)
