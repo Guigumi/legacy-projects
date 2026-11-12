@@ -1,0 +1,22 @@
+# Build artifacts
+artifacts/
+dist/
+[Bb]in/
+[Oo]bj/
+[Rr]elease/
+[Dd]ebug/
+
+# User configs & properties
+*.user
+*.suo
+Config.Build.user.props
+
+# Archives & logs
+*.zip
+*.log
+*.binlog
+
+# Tooling & internal SDD scratch
+.superpowers/
+.vs/
+.vscode/
